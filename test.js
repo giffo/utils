@@ -5,7 +5,7 @@ more of a check rather than a test
 */
 
 
-var utils = require("./index"); // change to giffo-utils
+var utils = require("giffo-utils");
 
 
 utils.builtins();

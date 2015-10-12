@@ -1,0 +1,22 @@
+{
+	
+	"name": "giffo-utils",
+	"version": "0.0.1",
+	"description": "giffo utils",
+	"author": "giffo <github@giffo.org>",
+	"main": "index.js",
+		
+	"repository": {
+		"type":"git",
+		"url":"https://github.com/giffo/utils"
+	},
+	
+	"bugs": {
+		"url": "https://github.com/giffo/utils/issues" 
+	},
+	
+	"keywords": [
+		"giffo-utils", "utils", "builtins"
+	],
+	"license": "MIT"
+}

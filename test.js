@@ -19,6 +19,10 @@ console.log("startswith true = " +str.startsWith("h"));
 console.log("String.is true = "+String.is(str));
 console.log("String.is false = "+String.is({}));
 
+var arr = [21,21,3,14,1,43];
+
+console.log("array contains true = "+arr.contains(14));
+
 //TODO: more checks
 
 
@@ -48,15 +52,30 @@ if(utils.isNumber(number)) {
 }
 console.log("padded "+ utils.padZeros(utils.randomNumber(1,9)));
 
-utils.endTick(function(){
-	console.log(".tick() printed last");	
-});
-
-console.log("\n\n.tick() printed above");
-
 
 utils.inspect({name:"me", greeting:"what"});
 utils.memory();
 console.log(utils.time());
 console.log(utils.timestamp());
+
+console.log("\n\n\testing .tick()")
+var ccount = 0;
+var f = function() {
+	if(ccount++ % 10 == 9)
+		console.log("hello"+ccount);
+}
+
+for(var i =0;i<200;i++)
+	utils.tick(f)
+
+utils.endTick(function(){
+	console.log("somewhere in the middle");
+})
+
+
+
+console.log("first line");
+
+
+
 

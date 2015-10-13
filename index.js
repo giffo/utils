@@ -19,7 +19,10 @@ module.exports = (function(){
 
 	var rng = new ID(2000); // change the name of this, it does more than id?
 	
-	
+	// used for .tick(fn)
+	var tickStackCount = 0;
+	var tickSwitch = false;
+	const TICK_LIMIT = 100; // tick limit before switching to the next tick
 	
 	
 	/* inner functions */
@@ -100,7 +103,8 @@ module.exports = (function(){
 				min = 0;
 			}
 			
-			return Math.floor(Math.random()*(max-min+1))+min;
+			//return Math.floor(Math.random()*(max-min+1))+min;
+			return ~~(Math.random()*(max-min+1))+min;
 			
 		},
 
@@ -189,16 +193,14 @@ module.exports = (function(){
 	
 		
 		
-		/*
-			timestamp should be the time epoch, and datestamp should be the data string
-		*/
-		
+	
 		
 		// returns a UTC formated string of current time - Fri, 01 Jan 1990 00:00:00 GMT
 		timestamp:function() {
 			return new Date().toUTCString();	
 		},
 		
+		// epoch?
 		time:function() {
 			return Date.now();
 		},
@@ -262,12 +264,33 @@ module.exports = (function(){
 		// setImmediate is actually start of the next tick
 		// ?? maybe a seperate object with 2 methods tick.end = process.nextTick, tick.next = setImmediate
 		endTick:process.nextTick, // end of this tick
-		startTick:setImmediate, // start of next tick
-		
-		// this method needed redoing so i took it out
-		tick:function(){
-			console.log("404, not implemented yet");
-			
+		startTick:setImmediate, // start of next tick, should be called nextTick - but i fear it would be too confusing
+		//thisTick:process.nextTick,
+		//nextTick:setImmediate,
+		// this manages the amount of ticks each cycle has to deal with,
+		// it allows other "processes" who use process.nextTick t
+		// example: we have process-A that puts 200 functions using nextTick
+		// and then another process-B puts a few functions onto nextTick,
+		// with this .tick() function process-B gets a look in rather than having
+		// all process-A functions getting priority.
+		// note: when I use this I do not care in what order they are processed in.
+
+		tick:function(fn){
+			if(tickStackCount++ < TICK_LIMIT) {
+				this.endTick(fn);
+			} else {
+				if(!tickSwitch) {
+					// passing a reset onto the start of the next tick
+					// it does not seem to matter if its at the end or start of tick
+					this.startTick(function() {
+						tickStackCount = 0;
+						tickSwitch = true;
+					});
+				}
+				tickSwitch = true;
+				this.startTick(fn);
+			}
+
 		},
 		
 		// test this

@@ -58,7 +58,7 @@ utils.memory();
 console.log(utils.time());
 console.log(utils.timestamp());
 
-console.log("\n\n\testing .tick()")
+console.log("\n\n\ttesting .tick()")
 var ccount = 0;
 var f = function() {
 	if(ccount++ % 10 == 9)

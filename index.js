@@ -47,7 +47,10 @@ module.exports = (function(){
 		
 		/**
 		 * returns a new object containing all the object's attributes given in the params
+		 * the last param gets priority and overwrites the previous
 		 * 
+		 * usage: 
+		 * 	var options = utils.blend(defaults, config, userInputtedParams);
 		 */
 		blend:function(ignoredArgs) {
 			var base = {};

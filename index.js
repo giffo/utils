@@ -3,7 +3,7 @@
 var fs = require('fs'); // used by mkdir
 var crypto = require('crypto'); // used by hash
 var util = require("util");
-var path = require("path");
+
 
 var ID = require("giffo-id");
 
@@ -21,6 +21,9 @@ function padZeros(n) {
 module.exports = (function(){
 
 	var rng = new ID(2000); // change the name of this, it does more than id?
+	
+	var path = require("path"); // mkdir only worked with this here, rather than outside this dirty anonymous function
+	
 	
 	// used for .tick(fn)
 	var tickStackCount = 0;

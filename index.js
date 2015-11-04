@@ -1,6 +1,9 @@
+/* Copyright (c) 2015 Giffo. All rights reserved.*/
+
 var fs = require('fs'); // used by mkdir
 var crypto = require('crypto'); // used by hash
 var util = require("util");
+var path = require("path");
 
 var ID = require("giffo-id");
 
@@ -222,11 +225,17 @@ module.exports = (function(){
 			return n+"th";
 		}, 
 		
-		// test this
+		
 		isNumber:function(n){
 			return !isNaN(parseFloat(n)) && isFinite(n);
 			
 			
+		},
+		
+		// parse string to number, ??if not a number then return the original string? or is that doing and assuming too much?
+		toNumber:function(str) {
+		
+			return parseInt(str, 10);
 		},
 		
 		// checks to see if an object is empty like {}

@@ -5,7 +5,8 @@ more of a check rather than a test
 */
 
 
-var utils = require("giffo-utils");
+//var utils = require("giffo-utils");
+var utils = require("./index.js");
 
 
 utils.builtins();
@@ -18,6 +19,9 @@ console.log("contains true = " + str.contains("l"));
 console.log("startswith true = " +str.startsWith("h"));
 console.log("String.is true = "+String.is(str));
 console.log("String.is false = "+String.is({}));
+console.log("hello is now "+str.cap());
+
+console.log("hello hello".capAll());
 
 var arr = [21,21,3,14,1,43];
 

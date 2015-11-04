@@ -136,6 +136,20 @@ module.exports = function() {
 
 	define(String, "capitalize", cap);
 	define(String, "cap", cap)
+	
+	
+	// costa rica becomes Costa Rica
+	define(String, "capAll", function() {
+		var s = this.split(" "); // split by space
+		var str = "";
+		for(var i=0;i<s.length;i++) {
+			s[i] = s[i].cap();
+		}
+				
+		
+		return s.join(" ");
+		
+	});
 
 
 	//define(String, "escape", function() {return this.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");});

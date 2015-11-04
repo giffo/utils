@@ -266,6 +266,7 @@ module.exports = (function(){
 		 * mkdir("c:\\super\\example\\test");
 		 */		 
 		mkdir:function(dirString) {
+			var path = require("path");
 			if(!fs.existsSync(dirString)) {
 				this.mkdir(path.resolve(dirString, '..'));
 				fs.mkdirSync(dirString);

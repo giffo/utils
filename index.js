@@ -1,5 +1,3 @@
-/* Copyright (c) 2015 Giffo. All rights reserved.*/
-
 var fs = require('fs'); // used by mkdir
 var crypto = require('crypto'); // used by hash
 var util = require("util");
@@ -15,7 +13,6 @@ var builtins = require("./builtins");
 	
 function padZeros(n) {
 	return n < 10 ? '0' + n.toString(10) : n.toString(10);
-	return n > 9 ? n.toString(10): '0' + n.toString(10);
 }
 
 module.exports = (function(){
@@ -40,6 +37,8 @@ module.exports = (function(){
 	return {
 		/* provides useful functions to String, Array and Function */
 		builtins:function(){
+			// only allow this once? 
+			
 			builtins();
 		},
 		
@@ -112,6 +111,8 @@ module.exports = (function(){
 				min = 0;
 			}
 			
+			//TODO: check min and max are numbers
+			
 			//return Math.floor(Math.random()*(max-min+1))+min;
 			return ~~(Math.random()*(max-min+1))+min;
 			
@@ -119,11 +120,9 @@ module.exports = (function(){
 
 
 		
-		
+		// uses the giffo-id module to produce crypo randomness IDs
 		id:function(size){
 			return rng.next(size || 32);
-			
-			
 		},
 
 
@@ -199,8 +198,23 @@ module.exports = (function(){
 			//return crypto.createHmac(hashtype, key).update(data).digest("hex");
 		},
 		
-	
-		
+		/*
+		 crypts text using aes-256-ctr
+		*/
+		encrypt:function(password, text) {
+			var cipher = crypto.createCipher("aes-256-ctr", password);
+			var result = cipher.update(text, "utf8", "hex");
+			result += cipher.final("hex");
+			return result;
+			
+		},
+		decrypt:function(password, data) {
+			var dcipher = crypto.createDecipher("aes-256-ctr", password);
+			var result = decipher.update(data, "hex", "utf8");
+			result +=decipher.final("utf8");
+			return result;
+			
+		},
 		
 	
 		

@@ -21,20 +21,10 @@ function define(obj, name, method) {
 
 
 
-var inherit = function(sub, parent) {
-	sub.prototype = Object.create(parent.prototype, {
-	constructor: {
-	    value: sub,
-		    configurable: true,
-					enumerable: false,
-					writable: true
-				}
-			});
-	
-    if (parent)
-        sub.prototype = parent.prototype;
-    //parent.call(sub);    
-}
+var inherit = function (ctor, superCtor) {
+    ctor.super_ = superCtor;
+    Object.setPrototypeOf(ctor.prototype, superCtor.prototype);
+};
 
 
 module.exports = function() {
@@ -61,7 +51,7 @@ module.exports = function() {
 
 		var highest = Number.MIN_VALUE; //NEGATIVE_INFINITY;
 		var tmp;
-		//for(var i=this.length-1; i>-1;i--) {
+		
 
 		// simple linear lookup
 		for(var i=0,l=this.length;i<l;i++) {

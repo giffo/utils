@@ -3,6 +3,8 @@
 // seperate file for maintaining purposes
 // I've included in comments all old versions of the methods for my own interest
 
+
+
 function define(obj, name, method) {
 	
 	if((method && typeof(method) === "function")
@@ -20,7 +22,7 @@ function define(obj, name, method) {
 }
 
 
-
+// updated after reading and testing - https://www.echosteg.com/nodejs-util-inherits-how-inheritance-works
 var inherit = function (ctor, superCtor) {
     ctor.super_ = superCtor;
     Object.setPrototypeOf(ctor.prototype, superCtor.prototype);
@@ -89,9 +91,6 @@ module.exports = function() {
 	});
 
 
-
-
-
 	/* String */
 /* //now included in node
 	define(String, "startsWith", function(s){
@@ -123,12 +122,29 @@ module.exports = function() {
 	var cap = function(){
 		return this.charAt(0).toUpperCase()+this.slice(1).toLowerCase();
 	}
+	
+	// capitalise entire sentence/title, used for nations or places or football team names
+
+	define(String, "capAll", function() {
+		var words = this.split(" ");
+		var stopList = ["and", "the", "of"];
+		for(var i=0;i<words.length;i++) {
+			if(stopList.indexOf(words[i]) == -1)
+				words[i] = words[i].charAt(0).toUpperCase()+words[i].slice(1).toLowerCase();
+		
+		
+		}
+		return words.join(" ");
+	
+	});
+	
 
 	define(String, "capitalize", cap);
 	define(String, "cap", cap)
 	
-	
+/*	
 	// costa rica becomes Costa Rica
+	// TODO: create a better function of this in giffo-cap/cap.js dir
 	define(String, "capAll", function() {
 		var s = this.split(" "); // split by space
 		var str = "";
@@ -140,7 +156,7 @@ module.exports = function() {
 		return s.join(" ");
 		
 	});
-
+*/
 
 	//define(String, "escape", function() {return this.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");});
 
@@ -155,19 +171,11 @@ module.exports = function() {
 
 
 	define(String, "slug", function(limit) {
-		//return this.replace(/\s_/g, "-").toLowerCase();
-
-		//return this.substring(0, limit || this.length).replace(/[\s_\.]+/g, "-").replace(/[\'\"?]+/g,"").toLowerCase();
 		return this.substring(0, (limit && limit > 0)?limit:null || this.length).replace(/[\s_\.]+/g, "-").replace(/[\'\"?]+/g,"").toLowerCase();
 	});
 
+	
 	define(String, "insert", function(str, pos) {
-	/*
-		pos = pos || this.length; // insert at end
-		pos = (pos > 0)?pos:this.length; // if less than zero, insert at end
-		pos = (pos > this.length)?this.length:pos; // if greater than length of this, insert at end
-	*/
-
 		if(pos && pos > 0)
 			return this.substring(0, pos) + str + this.substring(pos);
 		return this + "" + str;
@@ -194,7 +202,7 @@ module.exports = function() {
 		//Point.call(this, x, y);
 		Point.subclass(this, x, y); // maybe call it .construct?
 	}
-	//inherit(GameObject, Point);
+	
 	GameObject.inherit(Point);
 	var p = new Point(20, 20);
 
@@ -216,12 +224,6 @@ module.exports = function() {
 
 
 module.exports.define = define;
-
-	/*
-	// checks to see if one class is the same type?
-	//usage:
-	//String.is("a string") // true
-	Array.is("a string")// false
 
 
 	/*
@@ -253,29 +255,6 @@ todo: decide on remove, probably with just the position to remove, not from/to e
 
 	*/
 
-/*
-	not really needed at all - but sometimes using objects it is needed
-
-	define(Array,"size", function() {
-		var sz = 0, k;
-		for (k in this) {
-			if (this.hasOwnProperty(k)) {
-				sz++;
-			}
-		}
-		return sz;
-	});
-*/
 
 
 
-/*
-	console.log(String.is("s"));
-	console.log(String.is(383));
-	console.log(String.is([]));
-
-	console.log(Array.is([]));
-
-	console.log(Array.is({what:""}));
-
-	*/

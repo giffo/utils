@@ -37,7 +37,7 @@ module.exports = (function(){
 	return {
 		/* provides useful functions to String, Array and Function */
 		builtins:function(){
-			// only allow this once? 
+			// todo:only allow this once? 
 			
 			builtins();
 		},

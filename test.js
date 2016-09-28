@@ -21,7 +21,9 @@ console.log("String.is true = "+String.is(str));
 console.log("String.is false = "+String.is({}));
 console.log("hello is now "+str.cap());
 
-console.log("hello hello".capAll());
+console.log("\nString.capAll()");
+console.log("united states of america".capAll());
+console.log("Saint vincent and the grenandies".capAll());
 
 var arr = [21,21,3,14,1,43];
 
@@ -62,6 +64,9 @@ utils.memory();
 console.log(utils.time());
 console.log(utils.timestamp());
 
+
+
+
 console.log("\n\n\ttesting .tick()")
 var ccount = 0;
 var f = function() {
@@ -79,6 +84,9 @@ utils.endTick(function(){
 
 
 console.log("first line");
+
+
+
 
 
 

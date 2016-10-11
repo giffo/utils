@@ -10,6 +10,8 @@ var utils = require("./index.js");
 
 
 utils.builtins();
+// call more than once to test if the error messages are spat out
+utils.builtins();
 
 
 var str = "hello";

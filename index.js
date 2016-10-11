@@ -34,12 +34,17 @@ module.exports = (function(){
 		return crypto.createHash(type).update(str || "").digest("hex");
 	}
 	
+	var built = false;
+	
 	return {
 		/* provides useful functions to String, Array and Function */
 		builtins:function(){
-			// todo:only allow this once? 
-			
-			builtins();
+			// only allow method to be called once
+			// because if not, on each call from separate modules causes log message saying methods are already available
+			if(!built) {
+				builtins();
+				built = true;
+			}
 		},
 		
 		/* defines method on a specific object in a safe way.

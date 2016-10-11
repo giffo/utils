@@ -109,7 +109,7 @@ module.exports = function() {
 
 
 	define(String, "contains", function(s){
-		return (this.indexOf(s) != -1);
+		return (this.indexOf(s) !== -1);
 	});
 
 
@@ -117,14 +117,15 @@ module.exports = function() {
 		return this.replace(new RegExp(f,'g'),r);
 	});
 
+	
 	// usage: "hello".cap();
-
+	// capitalises the first character of a string
 	var cap = function(){
 		return this.charAt(0).toUpperCase()+this.slice(1).toLowerCase();
 	}
 	
 	// capitalise entire sentence/title, used for nations or places or football team names
-
+	// costa rica becomes Costa Rica or united states of america becomes United States of America
 	define(String, "capAll", function() {
 		var words = this.split(" ");
 		var stopList = ["and", "the", "of"];
@@ -142,21 +143,6 @@ module.exports = function() {
 	define(String, "capitalize", cap);
 	define(String, "cap", cap)
 	
-/*	
-	// costa rica becomes Costa Rica
-	// TODO: create a better function of this in giffo-cap/cap.js dir
-	define(String, "capAll", function() {
-		var s = this.split(" "); // split by space
-		var str = "";
-		for(var i=0;i<s.length;i++) {
-			s[i] = s[i].cap();
-		}
-				
-		
-		return s.join(" ");
-		
-	});
-*/
 
 	//define(String, "escape", function() {return this.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");});
 
@@ -188,7 +174,7 @@ module.exports = function() {
 	
 	// checks to see if one class is the same type?
 	//usage:
-	//String.is("a string")
+	//String.is("a string") or Array.is([])
 	define(Function, "is", function(that){
 			return that != null && (this.prototype.constructor === that.constructor);
 	});
@@ -253,6 +239,12 @@ todo: decide on remove, probably with just the position to remove, not from/to e
 		return this.push.apply(this, rest);
 	});
 
+	
+
+	// method of getting the class from [Object 
+	Object.prototype.toString.call(el).slice(8, -1).toLowerCase()	
+
+	
 	*/
 
 

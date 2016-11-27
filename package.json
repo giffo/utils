@@ -18,5 +18,8 @@
 	"keywords": [
 		"giffo-utils", "utils", "builtins"
 	],
+	"dependencies": {
+		"giffo-id":"*"
+	},
 	"license": "MIT"
 }

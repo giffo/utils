@@ -34,7 +34,10 @@ module.exports = (function(){
 		return crypto.createHash(type).update(str || "").digest("hex");
 	}
 	
-	var built = false;
+	
+	// used in builtins func
+	var built = false; 
+	
 	
 	return {
 		/* provides useful functions to String, Array and Function */
@@ -146,7 +149,7 @@ module.exports = (function(){
 
 			arr[8] = arr[13] = arr[18] = arr[23] = "-";
 			arr[14] = "4";
-			arr[19] = c[(Math.random()*0x100) & 0x3]
+			arr[19] = c[(Math.random()*0x100) & 0x3];
 			return arr.join("");
 		},
 		
@@ -250,13 +253,10 @@ module.exports = (function(){
 		
 		isNumber:function(n){
 			return !isNaN(parseFloat(n)) && isFinite(n);
-			
-			
 		},
 		
 		// parse string to number, ??if not a number then return the original string? or is that doing and assuming too much?
 		toNumber:function(str) {
-		
 			return parseInt(str, 10);
 		},
 		
